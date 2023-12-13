@@ -3,11 +3,19 @@ const router = express.Router();
 
 const {
     featuredProducts,
-    searchProducts
+    searchProducts,
+    getAllProducts,
+    newProducts
   } = require("../controller/productController");
 
-router.get('/feature-product', featuredProducts);
+const { validToken, authorizeRoles } = require("../middleware/auth");
 
-router.post('/search', searchProducts);
+router.route("/feature-product").get(featuredProducts);
+
+router.route("/search").post(searchProducts);
+
+router.route("/all-products").get(getAllProducts);
+
+router.route("/add-products").post(validToken, authorizeRoles('user'), newProducts);
 
 module.exports = router;

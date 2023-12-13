@@ -38,10 +38,11 @@ const userSchema = new mongoose.Schema({
     },
     orders: [
         {
-          type: Schema.Types.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: 'Order',
         },
     ],
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     createdAt:{
         type: Date,
         default: Date.now,
